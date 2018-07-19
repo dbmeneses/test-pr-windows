@@ -218,19 +218,6 @@ class SonarLintLanguageClient extends AutoLanguageClient {
     return javaPath == null ? 'java' : path.join(javaPath, 'bin', 'java');
   }
 
-  getJavaPath () {
-    return (new Array(
-      atom.config.get('sonarlint.javaHome'),
-      process.env.JDK_HOME,
-      process.env.JAVA_HOME)
-    ).find(j => j);
-  }
-
-  installPluginIfRequired(pluginHome, plugin) {
-    return this.isPluginInstalled(pluginHome, plugin)
-    .then(doesExist => { if (!doesExist) return this.installPlugin(pluginHome, plugin); });
-  }
-
   isPluginInstalled(pluginHome, plugin) {
     return this.fileExists(path.join(pluginHome, plugin.filename));
   }
